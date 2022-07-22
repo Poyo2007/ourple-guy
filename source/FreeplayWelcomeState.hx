@@ -13,6 +13,8 @@ import flixel.util.FlxTimer;
 
 class FreeplayWelcomeState extends MusicBeatState
 {
+  var justPressedScreen:Bool = false:
+  
 	public static var leftState:Bool = false;
 
 	var bg:FlxSprite;
@@ -21,16 +23,26 @@ class FreeplayWelcomeState extends MusicBeatState
 	{
 		super.create();
 
-		bg = new FlxSprite().loadGraphic(Paths.image('freeplaywelcome', 'preload'));
+		bg = new FlxSprite().loadGraphic(Paths.image('freeplaywelcomeandroid', 'preload'));
         bg.screenCenter();
 		add(bg);
 	}
 
 	override function update(elapsed:Float)
 	{
+  	#if android
+    for (touch in FlxG.touches.list)
+  		{
+  			if (touch.justPressed)
+  			{
+  				justPressedScreen = true;
+  			}
+  		}
+    #end
+  
 		if(!leftState) {
 			var back:Bool = controls.BACK;
-			if (controls.ACCEPT || back) {
+			if (controls.ACCEPT || back || justPressedScreen) {
 				leftState = true;
 				FlxTransitionableState.skipNextTransIn = true;
 				FlxTransitionableState.skipNextTransOut = true;

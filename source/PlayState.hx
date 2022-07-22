@@ -1195,6 +1195,10 @@ class PlayState extends MusicBeatState
 		songSign.cameras = [camHUD];
 		songSignTxt.cameras = [camHUD];
 		millerSubtitles.cameras = [camHUD];
+		
+		        #if android
+	addAndroidControls();
+        #end
 
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
